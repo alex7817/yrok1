@@ -1,6 +1,5 @@
-from typing import List, Any
-
-str = ('Все счастливые семьи похожи друг на друга, каждая несчастливая семья несчастлива по-своему. Все смешалось в \n'
+from collections import Counter
+str1 = ('Все счастливые семьи похожи друг на друга, каждая несчастливая семья несчастлива по-своему. Все смешалось в \n'
        'доме Облонских. Жена узнала, что муж был в связи с бывшею в их доме француженкою-гувернанткой, и объявила '
        'мужу, \n '
        'что не может жить с ним в одном доме. Положение это продолжалось уже третий день и мучительно чувствовалось и '
@@ -70,21 +69,38 @@ str = ('Все счастливые семьи похожи друг на дру
        'себе. Увидав эту улыбку, Долли вздрогнула, как от физической боли, разразилась, со свойственною ей '
        'горячностью, \n '
        'потоком жестоких слов и выбежала из комнаты. С тех пор она не хотела видеть мужа.')
-str=str.replace('.','')
-str=str.replace(',','')
-str=str.replace('!','')
-str=str.replace('?','')
-str=str.replace('—','')
-str=str.replace('»','')
-str=str.replace('«','')
-str=str.replace('(','')
-str=str.replace(')','')
-str=str.replace(':','')
-str=str.replace(';','')
-# print(str)
-list=str.split()
-print(list)
-# new_list=list(map() list))
-# print(new_list)
-list[0]=str.lower()
-print(list[0])
+str1=str1.replace('.','')
+str1=str1.replace(',','')
+str1=str1.replace('!','')
+str1=str1.replace('?','')
+str1=str1.replace('—','')
+str1=str1.replace('»','')
+str1=str1.replace('«','')
+str1=str1.replace('(','')
+str1=str1.replace(')','')
+str1=str1.replace(':','')
+str1=str1.replace(';','')
+# print(str1)
+list1=str1.split()
+print(list1)
+# понижаем регистр
+# new_list=list(map(lambda x: x.lower(),list1))
+new_list=list(map(str.lower,list1))
+print(new_list)
+# создаем словарь считаем кол-во слов
+dict_temp={}
+# dict_temp=dict.fromkeys(new_list)
+for i in range(len(new_list)):
+ dict_temp[new_list[i]] = new_list.count(new_list[i])
+print(dict_temp)
+# пять наиболее часто встречающихся и общее кол-во уникальных
+# dict_temp1=Counter(dict_temp).most_common(5)
+# print(dict_temp1)
+list_5=(list(dict_temp.items()))
+list_5.sort(key=lambda x:x[1],reverse=True)
+print(list_5[0:5])
+print(len(set(dict_temp)))
+import pymorphy2
+morph = pymorphy2.MorphAnalyzer()
+lemma = morph.parse(new_list[3])[0]
+print(new_list[3], ' - ', lemma.normal_form)
